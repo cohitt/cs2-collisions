@@ -35,14 +35,52 @@ class Asteroid {
   // draws a n-sided polygon with its circumcenter at (x,y), with a
   // distance r from the center to each vertex.
   private void polygon(float x, float y, float radius, int npoints) {
-  float angle = TWO_PI / npoints;
-  beginShape();
-  for (float a = 0; a < TWO_PI; a += angle) {
-    float sx = x + cos(a) * radius;
-    float sy = y + sin(a) * radius;
-    vertex(sx, sy);
+    float angle = TWO_PI / npoints;
+    beginShape();
+    for (float a = 0; a < TWO_PI; a += angle) {
+      float sx = x + cos(a) * radius;
+      float sy = y + sin(a) * radius;
+      vertex(sx, sy);
+    }
+    endShape(CLOSE);
   }
-  endShape(CLOSE);
-}
-
+  
+  int childShape() { // Returns the number of sides of asteroids created when this one splits
+    return size-1;
+  }
+  
+  boolean canSplit() { // Returns true if asteroid has more than 4 sides, otherwise returns false
+    if (size > 4) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  float radius() {
+    if (size == 4) {
+      return 10;
+    } else if (size == 5) {
+      return 12.7;
+    } else if (size == 6) {
+      return 16;
+    } else if (size == 7) {
+      return 20.2;
+    } else {
+      return 25.4;
+    }
+  }
+  
+  void render() {
+    float angle = TWO_PI / this.size;
+    beginShape();
+    for (float a = 0; a < TWO_PI; a += angle) {
+      float sx = this.center.x + cos(a) * this.radius();
+      float sy = this.center.y + sin(a) * this.radius();
+      vertex(sx, sy);
+    }
+    endShape(CLOSE);
+  }
+  
+  
 }
