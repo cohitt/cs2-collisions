@@ -82,5 +82,23 @@ class Asteroid {
     endShape(CLOSE);
   }
   
+  Pair<PVector, PVector> childVelocities() {
+    PVector v1 = v.copy();
+    PVector v2 = v.copy();
+    v1.x = v1.x * 1.1; // Multiply magnitude of each point in each vector by 1.1
+    v1.y = v1.y * 1.1;
+    v2.x = v2.x * 1.1;
+    v2.y = v2.y * 1.1;
+    v1.rotate(PI/6); // Rotate the two vectors
+    v2.rotate(-PI/6);
+    Pair<PVector, PVector> ret = new Pair(v1, v2);
+    return ret;
+  }
   
+  Pair<Asteroid, Asteroid> children() {
+    Asteroid a1 = new Asteroid(childShape(), this.center.copy(), childVelocities().a);
+    Asteroid a2 = new Asteroid(childShape(), this.center.copy(), childVelocities().b);
+    Pair<Asteroid, Asteroid> ret = new Pair(a1, a2);
+    return ret;
+  }
 }
