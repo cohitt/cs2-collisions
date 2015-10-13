@@ -1,12 +1,12 @@
 class Breaker {
   final PVector center;
   float rotation;
-  final PVector v;
+  final PVector v; // Breaker velocity
 
   Breaker(PVector c, float r) {
     center = c;
     rotation = r;
-    v = new PVector (-100, 0);
+    v = new PVector (-200, 0); 
   }
   
   public void update(float dt) {
