@@ -9,13 +9,13 @@ class Breaker {
     v = new PVector (-200, 0); 
   }
   
-  public void update(float dt) {
+  public void update(float dt) { // Update position of breaker
     PVector dv = v.copy();
     dv.rotate(this.rotation);
     dv.mult(dt/1000);
     center.add(dv);
-    center.x = center.x % width;
-    center.y = center.y % height;
+    center.x = (center.x + width) % width;
+    center.y = (center.y + height) % height;
   }
 
   float radius() {

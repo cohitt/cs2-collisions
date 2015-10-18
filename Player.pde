@@ -5,7 +5,6 @@
 class Player { // Create the class
   PVector center; // PVector center variable
   final PVector v; // PVector velocity variable 
-  final PVector a; // PVector acceleration variable
   float rotation; // Angle of rotation variable
   int fireCount; // Controls how fast the player can fire
   boolean dead; // Whether the player is dead or alive
@@ -13,19 +12,17 @@ class Player { // Create the class
   Player() { // Constructor method 
     center = new PVector(width/2, height/2); // Set initial position to middle of screen
     v = new PVector(0, 0); // Set velocity to 0
-    a = new PVector(0, 0); // Set acceleration to 0
     rotation = 0; 
-    fireCount = 1;
+    fireCount = 4;
     dead = false;
   }
   
   public void update(float dt) { // Method to update location based on velocity
     PVector dv = v.copy();
-    dv.rotate(this.rotation);
     dv.mult(dt/1000);
     center.add(dv);
-    center.x = center.x % width;
-    center.y = center.y % height;
+    center.x = (center.x + width) % width;
+    center.y = (center.y + height) % height;
   }
   
   float radius() { // Return radius

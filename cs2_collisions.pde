@@ -48,8 +48,7 @@ void handleCollisions() {
 }
 
 // The number of (random) elements to create.
-int initialAsteroids = 2;
-int initialBreakers = 30;
+int initialAsteroids = 4;
 
 ArrayList<Asteroid> asteroids = new ArrayList();
 ArrayList<Breaker> breakers = new ArrayList();
@@ -127,27 +126,25 @@ boolean colliding2(Asteroid a, Player p) {
 void keyPressed() { // Keyboard input
 if (p.dead == false) {
   if (key == ' ') { // When spacebar is pressed
-    if (p.fireCount > 1) { // Counter to control fire rate
+    if (p.fireCount > 4) { // Counter to control fire rate
       breakers.add(new Breaker(p.center.copy(), p.rotation));
       p.fireCount = 0;
     } else {
       p.fireCount++;
     }
   } if (keyCode == UP) { 
-    if (p.v.x > -80) { // If speed is not at max
-      p.v.x = p.v.x - 20; // Accelerate
+          p.v.x = p.v.x - 10 * (cos(p.rotation)); // X acceleration
+          p.v.y = p.v.y - 10 * (sin(p.rotation)); // Y acceleration
     }
-  if (keyCode == DOWN) {
-    if (p.v.x < 0) {
-      p.v.x = p.v.x + 20;
-    }
-  }
-  }
   if (keyCode == LEFT) { // Rotate left 
-    p.rotation = p.rotation-radians(10);
+    p.rotation = p.rotation - radians(10);
   } else if (keyCode == RIGHT) { // Rotate right
-    p.rotation = p.rotation+radians(10);
-  }
+    p.rotation = p.rotation + radians(10);
+  } 
+if (mag(p.v.x, p.v.y) > 80) { // Cap velocity magnitude at 80
+  p.v.setMag(80);
 }
 }
+}
+
   
